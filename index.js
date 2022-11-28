@@ -52,7 +52,8 @@ const bancoDados = [
   },
 ];
 
-//CRIAÇÃO DAS ROTAS
+//Criacao das rotas
+//GET "/all"
 app.get("/all", (req, res) => {
   // req -> request -> REQUISIÇÃO QUE VEM DO CLIENTE
   // res -> response -> RESPOSTA PARA O CLIENTE
@@ -63,13 +64,8 @@ app.get("/all", (req, res) => {
   return res.status(200).json(bancoDados);
 });
 
-//ATIVIDADE: CRIAR UMA ROTA QUE RETORNA O BANCO DE DADOS -> ROTA -> "/all-users" verbo: GET
-app.get("/all-users", (req, res) => {
-  return res.status(200).json(bancoDados);
-});
-
-//POST - create
-app.post("/new-user", (req, res) => {
+//POST "/create"
+app.post("/create", (req, res) => {
   //console.log(req.body) // => é o CORPO da minha requisição (json)
   //console.log(req.body.name) => apenas o nome
 
@@ -80,7 +76,22 @@ app.post("/new-user", (req, res) => {
   return res.status(201).json(bancoDados);
 });
 
-//DELETE - delete a user
+//PUT "/edit/:id"
+app.delete("/edit/:id", (req, res) => {
+  console.log(req.params.id); // req.params -> {} por isso ele pode ser DESCONTRUÍDO
+  const { id } = req.params; // eu estou DESCONTRUINDO o req.params e ABRINDO o obj e acessando pelo NOME da chave
+
+  const putById = bancoDados.find((user) => user.id === id);
+  console.log(putById);
+  const index = bancoDados.indexOf(putById);
+  console.log(index);
+
+  bancoDados.splice(index, 1);
+
+  return res.status(200).json(bancoDados);
+});
+
+//DELETE "/delete/:id"
 app.delete("/delete/:id", (req, res) => {
   console.log(req.params.id); // req.params -> {} por isso ele pode ser DESCONTRUÍDO
   const { id } = req.params; // eu estou DESCONTRUINDO o req.params e ABRINDO o obj e acessando pelo NOME da chave
@@ -95,7 +106,7 @@ app.delete("/delete/:id", (req, res) => {
   return res.status(200).json(bancoDados);
 });
 
-// o servidor subindo pro ar.
+//Coloca o servidor no ar
 app.listen(process.env.PORT, () => {
   console.log(
     `App up and running on port http://localhost:${process.env.PORT}`
