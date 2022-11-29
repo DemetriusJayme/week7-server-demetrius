@@ -2,6 +2,8 @@
 import express from "express";
 import * as dotenv from "dotenv";
 //import { uuid } from "uuidv4";
+import connect from "./config/db.config.js";
+import userRoute from "./routes/user.routes.js";
 
 //habilitar o servidor a ter variáveis de ambiente
 dotenv.config();
@@ -13,7 +15,7 @@ const app = express();
 app.use(express.json());
 
 //banco de dados
-const bancoDados = [
+/* const bancoDados = [
   {
     id: "e27ab2b1-cb91-4b18-ab90-5895cc9abd29",
     documentName: "Licitação Enap - Curso Web Dev",
@@ -49,8 +51,8 @@ const bancoDados = [
     comments: ["Processo em aberto", "Processo finalizado"],
     dateEnd: "25/11/2022",
     setor: "trj",
-  },
-];
+  }, */
+/* ]; */
 
 //Criacao das rotas
 //GET "/all"
